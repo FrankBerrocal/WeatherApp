@@ -1,5 +1,7 @@
 package com.example.weatherupdate;
 
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,8 +29,10 @@ public class MainActivity extends AppCompatActivity {
     EditText etCity, etCountry;
     TextView tvResult;
     private final String url ="https://api.openweathermap.org/data/2.5/weather";
-    private final String appid = "7b00ead376fe3fae0d5f38cba0ebb08f"; //create a personal token
+    private final String appid = "Generate your personal API key"; //create a personal token
     DecimalFormat df = new DecimalFormat( "#.##");
+
+    Log d;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,22 +92,19 @@ public class MainActivity extends AppCompatActivity {
                         double lon = jsonObjectCoord.getDouble("lon");
                         double lat = jsonObjectCoord.getDouble("lat");
 
-                        //change dinamically color of textview
-                        tvResult.setTextColor(Color.rgb(255,255,255));
 
-                        //create an output link concatenating all varaibles.
+                        //create an output link concatenating all variables.
                         output += "Current weather in " + city +  " (" + countryName + ")"
-                                + "\n Located in Longitude " + df.format(lon) + " and Latitude " + df.format(lat) +","
-                                + "\n Temperature: " + df.format(temp) + " °C"  // ASCII Alt + 0176 for degrees
-                                + "\n Feels like : " + df.format(feelslike) + " °C"
-                                + "\n Humidity: " + humidity + "%"
-                                + "\n Pressure: " + pressure + "hPa"
-                                + "\n Description: " + description
-                                + "\n Wind Speed: " + wind + "m/s (meters per second)"
-                                + "\n Cloudiness: " + clouds +"%";
+                                + "\nLocated in Longitude " + df.format(lon) + " and Latitude " + df.format(lat) +","
+                                + "\nTemperature: " + df.format(temp) + " °C"  // ASCII Alt + 0176 for degrees
+                                + "\nFeels like : " + df.format(feelslike) + " °C"
+                                + "\nHumidity: " + humidity + "%"
+                                + "\nPressure: " + pressure + "hPa"
+                                + "\nDescription: " + description
+                                + "\nWind Speed: " + wind + "m/s (meters per second)"
+                                + "\nCloudiness: " + clouds +"%";
                         tvResult.setText(output);
-
-
+                        Log.i("API info", output);
 
 
                     } catch (JSONException e) {
